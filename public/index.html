@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Olive AI — Chat</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Puter client (browser) if you use Puter client-side streaming -->
+  <script src="https://js.puter.com/v2/"></script>
+</head>
+<body>
+  <div class="app-root">
+    <aside class="sidebar">
+      <div class="sb-top">
+        <div class="brand">Olive AI</div>
+        <div>
+          <select id="modelSelect"></select>
+        </div>
+      </div>
+
+      <div id="historyList" class="history-list"></div>
+
+      <div class="sb-actions">
+        <button id="btnNew" class="btn small">New</button>
+        <button id="btnDocs" class="btn small">Docs</button>
+        <button id="btnSettings" class="btn small">Settings</button>
+      </div>
+
+      <div class="sb-bottom">
+        <div id="authArea" class="auth-area"></div>
+        <div class="copyright">Syawaliuz Octavian © 2025</div>
+        <label class="theme-switch"> <input id="darkToggle" type="checkbox"/> Dark </label>
+      </div>
+    </aside>
+
+    <main class="main-col">
+      <header class="topbar">
+        <div class="left">
+          <div class="title">Olive AI</div>
+          <div id="userBadge" class="user-badge">Not signed in</div>
+        </div>
+        <div class="right">
+          <div id="activeModelLabel" class="model-badge"></div>
+        </div>
+      </header>
+
+      <section id="chat" class="chat-area">
+        <div id="emptyState" class="empty-state">
+          <div class="logo-oval"></div>
+          <p>Halo! Tanyakan sesuatu pada Olive 💬</p>
+        </div>
+      </section>
+
+      <div id="suggestions" class="suggestions">
+        <button class="pill">Create an illustration<br><small>for a bakery</small></button>
+        <button class="pill">Write a thank-you note<br><small>to my colleague</small></button>
+        <button class="pill">Plan a 3-day trip<br><small>to Bali</small></button>
+      </div>
+
+      <form id="composer" class="composer" autocomplete="off">
+        <div class="composer-row">
+          <button type="button" class="icon-btn">＋</button>
+          <textarea id="input" placeholder="Ketik pesan..." rows="1"></textarea>
+          <div class="right-tools">
+            <button id="btnReport" type="button" class="btn small">Report</button>
+            <button id="sendBtn" class="send-btn" type="submit">Kirim</button>
+          </div>
+        </div>
+
+        <div class="composer-meta">
+          <div id="thinkingIndicator" class="thinking hidden"><span class="dot"></span><span class="dot"></span><span class="dot"></span> <span class="text">Olive is thinking…</span></div>
+          <div class="meta-right">Remembering last 5 • Mood: <span id="moodLabel">Netral</span></div>
+        </div>
+      </form>
+    </main>
+  </div>
+
+  <!-- AUTH modal (auto show) -->
+  <div id="authModal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <h3 id="authTitle">Login</h3>
+      <div class="modal-body">
+        <input id="authUser" placeholder="Username" />
+        <input id="authPass" type="password" placeholder="Password" />
+        <div class="row">
+          <button id="authSubmit" class="btn accent">Submit</button>
+          <button id="authToggle" class="btn">Switch to Sign Up</button>
+        </div>
+        <div id="authMsg" class="muted"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Docs modal -->
+  <div id="docsModal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <h3>Local Documents (RAG)</h3>
+      <div class="modal-body">
+        <input id="docTitle" placeholder="Title (optional)" />
+        <textarea id="docText" placeholder="Document text..." rows="6"></textarea>
+        <div class="row">
+          <button id="saveDoc" class="btn accent">Save doc</button>
+          <button id="closeDocs" class="btn">Close</button>
+        </div>
+        <div id="docsList" style="margin-top:10px"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Report modal -->
+  <div id="reportModal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <h3>Report / Customer Service</h3>
+      <div class="modal-body">
+        <input id="reportSubject" placeholder="Subject" />
+        <textarea id="reportMsg" placeholder="Describe the bug or request..." rows="4"></textarea>
+        <div class="row">
+          <button id="submitReport" class="btn accent">Send</button>
+          <button id="closeReport" class="btn">Close</button>
+        </div>
+        <div id="reportResult" class="muted"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
